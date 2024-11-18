@@ -49,7 +49,7 @@ SimpleMBCompAudioProcessor::SimpleMBCompAudioProcessor()
     choiceHelper(compressor.ratio, Names::Ratio_Low_Band);
     boolHelper(compressor.bypassed, Names::Bypassed_Low_Band);
     floatHelper(lowMidCrossover, Names::Low_Mid_Crossover_Freq);
-    floatHelper(midHighCrossover, Names::Low_Mid_Crossover_Freq);
+    floatHelper(midHighCrossover, Names::Mid_High_Crossover_Freq);
 
     LP1.setType(juce::dsp::LinkwitzRileyFilterType::lowpass);
     HP1.setType(juce::dsp::LinkwitzRileyFilterType::highpass);
