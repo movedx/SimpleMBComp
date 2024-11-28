@@ -31,11 +31,13 @@ SimpleMBCompAudioProcessorEditor::~SimpleMBCompAudioProcessorEditor()
 void SimpleMBCompAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+    //g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
 
-    g.setColour (juce::Colours::white);
-    g.setFont (juce::FontOptions (15.0f));
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    //g.setColour (juce::Colours::white);
+    //g.setFont (juce::FontOptions (15.0f));
+    //g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+
+    g.fillAll(juce::Colours::black);
 }
 
 void SimpleMBCompAudioProcessorEditor::resized()
@@ -47,10 +49,31 @@ void SimpleMBCompAudioProcessorEditor::resized()
     controlBar.setBounds(bounds.removeFromTop(32));
     bandControls.setBounds(bounds.removeFromBottom(135));
     analyzer.setBounds(bounds.removeFromTop(225));
+    globalControls.setBounds(bounds);
 }
 
 Placeholder::Placeholder()
 {
     juce::Random r;
     customColor = juce::Colour(r.nextInt(255), r.nextInt(255), r.nextInt(255));
+}
+
+GlobalControls::GlobalControls()
+{
+}
+
+void GlobalControls::paint(juce::Graphics& g)
+{
+    using namespace juce;
+    auto bounds = getLocalBounds();
+    g.setColour(Colours::blueviolet);
+    g.fillAll();
+
+    auto localBounds = bounds;
+
+    bounds.reduce(3, 3);
+    g.setColour(Colours::blue);
+    g.fillRoundedRectangle(bounds.toFloat(), 3);
+
+    g.drawRect(localBounds);
 }
