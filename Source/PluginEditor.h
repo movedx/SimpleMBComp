@@ -143,9 +143,10 @@ void addLabelPairs(Labels& labels, const ParamType& param, const SuffixType& suf
 
 }
 
-struct CompressorBandControls : juce::Component
+struct CompressorBandControls : juce::Component, juce::Button::Listener
 {
     CompressorBandControls(juce::AudioProcessorValueTreeState& apv);
+    ~CompressorBandControls() override;
     void resized() override;
     void paint(juce::Graphics& g) override;
 private:
@@ -165,6 +166,9 @@ private:
     juce::Component::SafePointer<CompressorBandControls> safePtr{ this };
 
     void updateAttachments();
+    void buttonClicked(juce::Button* button);
+    void updateSliderEnablements();
+    void updateSoloMuteBypassToggleStates(juce::Button& clickedButton);
 };
 
 struct GlobalControls : juce::Component
