@@ -3,8 +3,6 @@
 #include "RotarySliderWithLabels.h"
 #include "CustomButtons.h"
 
-//==============================================================================
-
 void LookAndFeel::drawRotarySlider(juce::Graphics& g,
                                    int x,
                                    int y,
