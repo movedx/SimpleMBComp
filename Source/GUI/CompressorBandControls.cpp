@@ -148,7 +148,6 @@ void CompressorBandControls::buttonClicked(juce::Button* button)
 void CompressorBandControls::updateActiveBandFillColors(juce::Button& clickedButton)
 {
     jassert(activeBand != nullptr);
-    DBG("active band: " << activeBand->getName());
 
     if (clickedButton.getToggleState() == false)
     {
