@@ -242,6 +242,26 @@ void SpectrumAnalyzer::resized()
     rightPathProducer.updateNegativeInfinity(negInf);
 }
 
+void SpectrumAnalyzer::update(const std::vector<float>& values)
+{
+    jassert(values.size() == 6);
+    enum
+    {
+        LowBandIn,
+        LowBandOut,
+        MidBandIn,
+        MidBandOut,
+        HighBandIn,
+        HighBandOut,
+    };
+
+    lowBandGR = values[LowBandOut] - values[LowBandIn];
+    midBandGR = values[MidBandOut] - values[MidBandIn];
+    highBandGR = values[HighBandOut] - values[HighBandIn];
+
+    repaint();
+}
+
 void SpectrumAnalyzer::parameterValueChanged(int parameterIndex, float newValue)
 {
     parametersChanged.set(true);
@@ -337,6 +357,14 @@ void SpectrumAnalyzer::drawCrossovers(juce::Graphics& g, juce::Rectangle<int> bo
     {
         return jmap(db, NEGATIVE_INFINITY, MAX_DECIBELS, float(bottom), float(top));
     };
+
+    auto zeroDb = mapY(0.f);
+    g.setColour(Colours::hotpink.withAlpha(0.3f));
+
+    g.fillRect(Rectangle<float>::leftTopRightBottom(left, zeroDb, lowMidX, mapY(lowBandGR)));
+    g.fillRect(Rectangle<float>::leftTopRightBottom(lowMidX, zeroDb, midHighX, mapY(midBandGR)));
+    g.fillRect(Rectangle<float>::leftTopRightBottom(midHighX, zeroDb, right, mapY(highBandGR)));
+
 
     g.setColour(Colours::yellow);
     g.drawHorizontalLine(mapY(lowThresholdParam->get()), left, lowMidX);

@@ -8,15 +8,16 @@
 #include "GUI/CompressorBandControls.h"
 #include "GUI/SpectrumAnalyzer.h"
 
-class SimpleMBCompAudioProcessorEditor  : public juce::AudioProcessorEditor
+class SimpleMBCompAudioProcessorEditor  : public juce::AudioProcessorEditor, juce::Timer
 {
 public:
     SimpleMBCompAudioProcessorEditor (SimpleMBCompAudioProcessor&);
     ~SimpleMBCompAudioProcessorEditor() override;
 
-    //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
+
+    void timerCallback() override;
 
 private:
     LookAndFeel lnf;
