@@ -10,6 +10,8 @@ struct CompressorBandControls : juce::Component, juce::Button::Listener
     ~CompressorBandControls() override;
     void resized() override;
     void paint(juce::Graphics& g) override;
+
+    void toggleAllBands(bool shouldBeBypasse);
 private:
     juce::AudioProcessorValueTreeState& apvts;
     RotarySliderWithLabels attackSlider, releaseSlider, thresholdSlider;

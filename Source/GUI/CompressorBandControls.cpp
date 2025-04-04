@@ -138,6 +138,24 @@ void CompressorBandControls::paint(juce::Graphics& g)
     drawModuleBackground(g, bounds);
 }
 
+void CompressorBandControls::toggleAllBands(bool shouldBeBypassed)
+{
+    std::vector<Component*> bands{ &lowBand, &midBand, &highBand };
+    for (auto* band : bands)
+    {
+        band->setColour(juce::TextButton::ColourIds::buttonOnColourId,
+                        shouldBeBypassed ?
+                        bypassButton.findColour(juce::TextButton::ColourIds::buttonOnColourId) :
+                        juce::Colours::grey);
+
+        band->setColour(juce::TextButton::ColourIds::buttonColourId,
+                        shouldBeBypassed ?
+                        bypassButton.findColour(juce::TextButton::ColourIds::buttonOnColourId) :
+                        juce::Colours::black);
+        band->repaint();
+    }
+}
+
 void CompressorBandControls::buttonClicked(juce::Button* button)
 {
     updateSliderEnablements();
